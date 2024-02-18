@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>test_delivery_service.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+test_delivery_service.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">random</span>
+<span class="s0">from </span><span class="s1">delivery_service </span><span class="s0">import </span><span class="s1">DeliveryService</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ </span><span class="s2">== </span><span class="s3">'__main__'</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;--------- Task1 load map ---------&quot;</span><span class="s2">)</span>
+    <span class="s4"># Note: You should try all six dataset. This is just a example using 1221.csv</span>
+    <span class="s1">ds </span><span class="s2">= </span><span class="s1">DeliveryService</span><span class="s2">()</span>
+    <span class="s1">ds</span><span class="s2">.</span><span class="s1">buildMap</span><span class="s2">(</span><span class="s3">'city_map_10.txt'</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Loaded {} vertices&quot;</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s1">ds</span><span class="s2">.</span><span class="s1">city_map</span><span class="s2">.</span><span class="s1">numVertices</span><span class="s2">))</span>
+
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;--------- Task2 check if within service range ---------&quot;</span><span class="s2">)</span>
+    <span class="s1">number_nodes </span><span class="s2">= </span><span class="s5">3</span>
+    <span class="s1">random_nodes </span><span class="s2">= [</span><span class="s1">v</span><span class="s2">.</span><span class="s1">id </span><span class="s0">for </span><span class="s1">v </span><span class="s0">in </span><span class="s1">random</span><span class="s2">.</span><span class="s1">sample</span><span class="s2">(</span><span class="s1">list</span><span class="s2">(</span><span class="s1">ds</span><span class="s2">.</span><span class="s1">city_map</span><span class="s2">.</span><span class="s1">vertList</span><span class="s2">.</span><span class="s1">values</span><span class="s2">()), </span><span class="s1">number_nodes</span><span class="s2">)]</span>
+    <span class="s1">threshold </span><span class="s2">= </span><span class="s5">10</span>
+    <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">number_nodes </span><span class="s2">- </span><span class="s5">1</span><span class="s2">):</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">'Restaurant:'</span><span class="s2">, </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s3">', User:'</span><span class="s2">, </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">+</span><span class="s5">1</span><span class="s2">], </span><span class="s3">'within service range (' </span><span class="s2">+ </span><span class="s1">str</span><span class="s2">(</span><span class="s1">threshold</span><span class="s2">) + </span><span class="s3">')?:'</span><span class="s2">, </span><span class="s1">ds</span><span class="s2">.</span><span class="s1">isWithinServiceRange</span><span class="s2">(</span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">+</span><span class="s5">1</span><span class="s2">], </span><span class="s5">10</span><span class="s2">))</span>
+
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;--------- Task3 build MST ---------&quot;</span><span class="s2">)</span>
+    <span class="s1">ds</span><span class="s2">.</span><span class="s1">buildMST</span><span class="s2">(</span><span class="s5">0</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">'MST number of nodes:'</span><span class="s2">, </span><span class="s1">ds</span><span class="s2">.</span><span class="s1">MST</span><span class="s2">.</span><span class="s1">numVertices</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">'MST total edge weights:'</span><span class="s2">, </span><span class="s1">DeliveryService</span><span class="s2">.</span><span class="s1">totalEdgeWeight</span><span class="s2">(</span><span class="s1">ds</span><span class="s2">.</span><span class="s1">MST</span><span class="s2">))</span>
+
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;--------- Task4 find path in MST ---------&quot;</span><span class="s2">)</span>
+    <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">number_nodes </span><span class="s2">- </span><span class="s5">1</span><span class="s2">):</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;From&quot;</span><span class="s2">, </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s3">&quot;to&quot;</span><span class="s2">, </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">+</span><span class="s5">1</span><span class="s2">], </span><span class="s3">'delivery time:'</span><span class="s2">, </span><span class="s1">ds</span><span class="s2">.</span><span class="s1">minimalDeliveryTime</span><span class="s2">(</span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">+</span><span class="s5">1</span><span class="s2">]))</span>
+
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;--------- Task5 find delivery path ---------&quot;</span><span class="s2">)</span>
+    <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">number_nodes </span><span class="s2">- </span><span class="s5">1</span><span class="s2">):</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;From&quot;</span><span class="s2">, </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s3">&quot;to&quot;</span><span class="s2">, </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">+</span><span class="s5">1</span><span class="s2">], </span><span class="s3">'Path:'</span><span class="s2">, </span><span class="s1">ds</span><span class="s2">.</span><span class="s1">findDeliveryPath</span><span class="s2">(</span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">+</span><span class="s5">1</span><span class="s2">]))</span>
+
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;--------- Task6 find delivery path given delay ---------&quot;</span><span class="s2">)</span>
+    <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">number_nodes </span><span class="s2">- </span><span class="s5">1</span><span class="s2">):</span>
+        <span class="s1">restaurant </span><span class="s2">= </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]</span>
+        <span class="s1">user </span><span class="s2">= </span><span class="s1">random_nodes</span><span class="s2">[</span><span class="s1">i</span><span class="s2">+</span><span class="s5">1</span><span class="s2">]</span>
+        <span class="s1">delayed_nodes </span><span class="s2">= </span><span class="s1">random</span><span class="s2">.</span><span class="s1">choices</span><span class="s2">(</span><span class="s1">list</span><span class="s2">(</span><span class="s1">ds</span><span class="s2">.</span><span class="s1">city_map</span><span class="s2">.</span><span class="s1">vertList</span><span class="s2">.</span><span class="s1">values</span><span class="s2">()), </span><span class="s1">k</span><span class="s2">=</span><span class="s5">3</span><span class="s2">)</span>
+        <span class="s1">delay_info </span><span class="s2">= {}</span>
+        <span class="s0">for </span><span class="s1">d </span><span class="s0">in </span><span class="s1">delayed_nodes</span><span class="s2">:</span>
+            <span class="s1">delay_info</span><span class="s2">[</span><span class="s1">d</span><span class="s2">.</span><span class="s1">id</span><span class="s2">] = </span><span class="s1">random</span><span class="s2">.</span><span class="s1">randint</span><span class="s2">(</span><span class="s5">1</span><span class="s2">, </span><span class="s5">10</span><span class="s2">)</span>
+        <span class="s0">try</span><span class="s2">:</span>
+            <span class="s0">del </span><span class="s1">delay_info</span><span class="s2">[</span><span class="s1">restaurant</span><span class="s2">]</span>
+        <span class="s0">except</span><span class="s2">:</span>
+            <span class="s0">pass</span>
+        <span class="s0">try</span><span class="s2">:</span>
+            <span class="s0">del </span><span class="s1">delay_info</span><span class="s2">[</span><span class="s1">user</span><span class="s2">]</span>
+        <span class="s0">except</span><span class="s2">:</span>
+            <span class="s0">pass</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Delay info:&quot;</span><span class="s2">, </span><span class="s1">delay_info</span><span class="s2">)</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s1">restaurant</span><span class="s2">, </span><span class="s1">user</span><span class="s2">, </span><span class="s3">'Path:'</span><span class="s2">, </span><span class="s1">ds</span><span class="s2">.</span><span class="s1">findDeliveryPathWithDelay</span><span class="s2">(</span><span class="s1">restaurant</span><span class="s2">, </span><span class="s1">user</span><span class="s2">, </span><span class="s1">delay_info</span><span class="s2">))</span>
+</pre>
+</body>
+</html>

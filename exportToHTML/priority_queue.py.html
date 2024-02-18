@@ -1,0 +1,113 @@
+<html>
+<head>
+<title>priority_queue.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+priority_queue.py</font>
+</center></td></tr></table>
+<pre><span class="s0">class </span><span class="s1">PriorityQueue</span><span class="s2">:</span>
+    <span class="s0">def </span><span class="s1">__init__</span><span class="s2">(</span><span class="s1">self</span><span class="s2">):</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray </span><span class="s2">= [(</span><span class="s3">0</span><span class="s2">, </span><span class="s3">0</span><span class="s2">)]</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">= </span><span class="s3">0</span>
+
+    <span class="s0">def </span><span class="s1">buildHeap</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">alist</span><span class="s2">):</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">= </span><span class="s1">len</span><span class="s2">(</span><span class="s1">alist</span><span class="s2">)</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray </span><span class="s2">= [(</span><span class="s3">0</span><span class="s2">, </span><span class="s3">0</span><span class="s2">)]</span>
+        <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">alist</span><span class="s2">:</span>
+            <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">i</span><span class="s2">)</span>
+        <span class="s1">i </span><span class="s2">= </span><span class="s1">len</span><span class="s2">(</span><span class="s1">alist</span><span class="s2">) // </span><span class="s3">2</span>
+        <span class="s0">while </span><span class="s2">(</span><span class="s1">i </span><span class="s2">&gt; </span><span class="s3">0</span><span class="s2">):</span>
+            <span class="s1">self</span><span class="s2">.</span><span class="s1">percDown</span><span class="s2">(</span><span class="s1">i</span><span class="s2">)</span>
+            <span class="s1">i </span><span class="s2">= </span><span class="s1">i </span><span class="s2">- </span><span class="s3">1</span>
+
+    <span class="s0">def </span><span class="s1">percDown</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">i</span><span class="s2">):</span>
+        <span class="s0">while </span><span class="s2">(</span><span class="s1">i </span><span class="s2">* </span><span class="s3">2</span><span class="s2">) &lt;= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize</span><span class="s2">:</span>
+            <span class="s1">mc </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">minChild</span><span class="s2">(</span><span class="s1">i</span><span class="s2">)</span>
+            <span class="s0">if </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s3">0</span><span class="s2">] &gt; </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">mc</span><span class="s2">][</span><span class="s3">0</span><span class="s2">]:</span>
+                <span class="s1">tmp </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">mc</span><span class="s2">]</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">mc</span><span class="s2">] = </span><span class="s1">tmp</span>
+            <span class="s1">i </span><span class="s2">= </span><span class="s1">mc</span>
+
+    <span class="s0">def </span><span class="s1">minChild</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">i</span><span class="s2">):</span>
+        <span class="s0">if </span><span class="s1">i </span><span class="s2">* </span><span class="s3">2 </span><span class="s2">&gt; </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize</span><span class="s2">:</span>
+            <span class="s0">return </span><span class="s2">-</span><span class="s3">1</span>
+        <span class="s0">else</span><span class="s2">:</span>
+            <span class="s0">if </span><span class="s1">i </span><span class="s2">* </span><span class="s3">2 </span><span class="s2">+ </span><span class="s3">1 </span><span class="s2">&gt; </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize</span><span class="s2">:</span>
+                <span class="s0">return </span><span class="s1">i </span><span class="s2">* </span><span class="s3">2</span>
+            <span class="s0">else</span><span class="s2">:</span>
+                <span class="s0">if </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i </span><span class="s2">* </span><span class="s3">2</span><span class="s2">][</span><span class="s3">0</span><span class="s2">] &lt; </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i </span><span class="s2">* </span><span class="s3">2 </span><span class="s2">+ </span><span class="s3">1</span><span class="s2">][</span><span class="s3">0</span><span class="s2">]:</span>
+                    <span class="s0">return </span><span class="s1">i </span><span class="s2">* </span><span class="s3">2</span>
+                <span class="s0">else</span><span class="s2">:</span>
+                    <span class="s0">return </span><span class="s1">i </span><span class="s2">* </span><span class="s3">2 </span><span class="s2">+ </span><span class="s3">1</span>
+
+    <span class="s0">def </span><span class="s1">percUp</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">i</span><span class="s2">):</span>
+        <span class="s0">while </span><span class="s1">i </span><span class="s2">// </span><span class="s3">2 </span><span class="s2">&gt; </span><span class="s3">0</span><span class="s2">:</span>
+            <span class="s0">if </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s3">0</span><span class="s2">] &lt; </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i </span><span class="s2">// </span><span class="s3">2</span><span class="s2">][</span><span class="s3">0</span><span class="s2">]:</span>
+                <span class="s1">tmp </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i </span><span class="s2">// </span><span class="s3">2</span><span class="s2">]</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i </span><span class="s2">// </span><span class="s3">2</span><span class="s2">] = </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">tmp</span>
+            <span class="s1">i </span><span class="s2">= </span><span class="s1">i </span><span class="s2">// </span><span class="s3">2</span>
+
+    <span class="s0">def </span><span class="s1">add</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">k</span><span class="s2">):</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">k</span><span class="s2">)</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">+ </span><span class="s3">1</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">percUp</span><span class="s2">(</span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize</span><span class="s2">)</span>
+
+    <span class="s0">def </span><span class="s1">delMin</span><span class="s2">(</span><span class="s1">self</span><span class="s2">):</span>
+        <span class="s1">retval </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s3">1</span><span class="s2">][</span><span class="s3">1</span><span class="s2">]</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s3">1</span><span class="s2">] = </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize</span><span class="s2">]</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">- </span><span class="s3">1</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">.</span><span class="s1">pop</span><span class="s2">()</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">percDown</span><span class="s2">(</span><span class="s3">1</span><span class="s2">)</span>
+        <span class="s0">return </span><span class="s1">retval</span>
+    <span class="s0">def </span><span class="s1">delMin1</span><span class="s2">(</span><span class="s1">self</span><span class="s2">):</span>
+        <span class="s0">if </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">== </span><span class="s3">0</span><span class="s2">:</span>
+            <span class="s0">return None</span>
+        <span class="s1">retval </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s3">1</span><span class="s2">]</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s3">1</span><span class="s2">] = </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize</span><span class="s2">]</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">- </span><span class="s3">1</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">.</span><span class="s1">pop</span><span class="s2">()</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">percDown</span><span class="s2">(</span><span class="s3">1</span><span class="s2">)</span>
+        <span class="s0">return </span><span class="s1">retval</span>
+
+    <span class="s0">def </span><span class="s1">isEmpty</span><span class="s2">(</span><span class="s1">self</span><span class="s2">):</span>
+        <span class="s0">if </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize </span><span class="s2">== </span><span class="s3">0</span><span class="s2">:</span>
+            <span class="s0">return True</span>
+        <span class="s0">else</span><span class="s2">:</span>
+            <span class="s0">return False</span>
+
+    <span class="s0">def </span><span class="s1">decreaseKey</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">val</span><span class="s2">, </span><span class="s1">amt</span><span class="s2">):</span>
+        <span class="s4"># this is a little wierd, but we need to find the heap thing to decrease by</span>
+        <span class="s4"># looking at its value</span>
+        <span class="s1">done </span><span class="s2">= </span><span class="s0">False</span>
+        <span class="s1">i </span><span class="s2">= </span><span class="s3">1</span>
+        <span class="s1">myKey </span><span class="s2">= </span><span class="s3">0</span>
+        <span class="s0">while not </span><span class="s1">done </span><span class="s0">and </span><span class="s1">i </span><span class="s2">&lt;= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">currentSize</span><span class="s2">:</span>
+            <span class="s0">if </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s3">1</span><span class="s2">] == </span><span class="s1">val</span><span class="s2">:</span>
+                <span class="s1">done </span><span class="s2">= </span><span class="s0">True</span>
+                <span class="s1">myKey </span><span class="s2">= </span><span class="s1">i</span>
+            <span class="s0">else</span><span class="s2">:</span>
+                <span class="s1">i </span><span class="s2">= </span><span class="s1">i </span><span class="s2">+ </span><span class="s3">1</span>
+        <span class="s0">if </span><span class="s1">myKey </span><span class="s2">&gt; </span><span class="s3">0</span><span class="s2">:</span>
+            <span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">myKey</span><span class="s2">] = (</span><span class="s1">amt</span><span class="s2">, </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">[</span><span class="s1">myKey</span><span class="s2">][</span><span class="s3">1</span><span class="s2">])</span>
+            <span class="s1">self</span><span class="s2">.</span><span class="s1">percUp</span><span class="s2">(</span><span class="s1">myKey</span><span class="s2">)</span>
+
+    <span class="s0">def </span><span class="s1">__contains__</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">vtx</span><span class="s2">):</span>
+        <span class="s0">for </span><span class="s1">pair </span><span class="s0">in </span><span class="s1">self</span><span class="s2">.</span><span class="s1">heapArray</span><span class="s2">:</span>
+            <span class="s0">if </span><span class="s1">pair</span><span class="s2">[</span><span class="s3">1</span><span class="s2">] == </span><span class="s1">vtx</span><span class="s2">:</span>
+                <span class="s0">return True</span>
+        <span class="s0">return False</span></pre>
+</body>
+</html>
